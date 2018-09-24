@@ -1,18 +1,34 @@
-import { List } from "immutable";
+import { List, Map } from "immutable";
 
 const TODO_ADD = 'TODO_ADD';
 const TODO_TOGGLE = 'TODO_TOGGLE';
 const TODO_REMOVE = 'TODO_REMOVE';
 
-const createTodo = text => ({
+export const todoAdd = text => ({
+    type: TODO_ADD,
     text,
-    completed: false,
 });
 
-const toggleTodo = ({completed, ...todo}) => ({
-    completed: !completed,
-    ...todo
+export const todoToggle = index => ({
+    type: TODO_TOGGLE,
+    index,
 });
+
+export const todoRemove = index => ({
+    type: TODO_REMOVE,
+    index,
+});
+
+const createTodo = text => (Map({
+    text,
+    completed: false,
+}));
+
+const toggleTodo = (todo) => {
+    const completed = !todo.get('completed');
+
+    return todo.set('completed', completed);
+};
 
 export default function todos(state = List(), {type, ...action}) {
     const {text, index} = action;
