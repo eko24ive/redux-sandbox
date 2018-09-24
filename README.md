@@ -4,5 +4,6 @@
 
 ### How to run
 - `npm i`
-- `npm start`
+- `npm start`  
+
 voilà !
