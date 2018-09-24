@@ -1,6 +1,19 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser')
 
 const app = new express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+mongoose.connect('mongodb://localhost/todos');
+
+const TodoSchema = mongoose.Schema({
+    text: String,
+    completed: Boolean,
+})
+
+const Todo = mongoose.model('Todo', TodoSchema);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -8,14 +21,34 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.get('/todos', (req, res) => {
+    Todo.find().then(todos => {
+        res.send(todos);
+    });
+});
 
-app.get('/', (req, res) => {
-    return res.status(500).send({
-        username: 'johndoe123',
-        dob: '12/02/1993',
-        'timestamp': Date.now()
-    }).status;
-})
+app.post('/todo/add', (req, res) => {
+    const { text, completed } = req.body;
+
+    const newTodo = Todo({
+        text,
+        completed
+    });
+
+    newTodo.save().then(todo => {
+        console.log({
+            text,
+            completed,
+            id: todo._id,
+        });
+        
+        return res.send({
+            text,
+            completed,
+            id: todo._id,
+        });
+    });
+});
 
 
 
