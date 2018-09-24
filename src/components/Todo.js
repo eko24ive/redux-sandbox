@@ -5,6 +5,12 @@ const TodoWrapper = styled.div`
     & > *{
         display: inline-block;
     }
+
+    font-size: 30px;
+    display: flex;
+    justify-content: space-around;
+    font-family: 'Arial';
+    align-items: baseline;
 `;
 
 const TodoButton = styled.div`
@@ -12,7 +18,7 @@ const TodoButton = styled.div`
 `;
 
 const TodoLabel = styled.span`
-    cursor: pointer;
+    text-transform: capitalize;
 `;
 
 const Todo = ({
