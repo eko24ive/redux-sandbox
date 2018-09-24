@@ -7,3 +7,7 @@
 - `npm start`  
 
 voilà !
+
+
+### Misc
+You can see simple backend implementation \w express+mongoose at [`todo-mongoose`](https://github.com/eko24ive/redux-sandbox/tree/todo-mongoose) branch
